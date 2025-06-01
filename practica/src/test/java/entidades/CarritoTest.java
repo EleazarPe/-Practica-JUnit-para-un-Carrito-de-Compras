@@ -16,18 +16,27 @@ public class CarritoTest {
     private static Carrito carrito;
     private static Producto producto;
 
+    /**
+     * Esta es la configuracion inicial que se ejecuta una sola vez antes de todos los test, lo que setea el carrito y un producto de prueba.
+     */
     @BeforeAll
     public static void setup() {
        carrito = Carrito.getInstance();
        producto = new Producto(1L, "Iphone 14", "Celular de alta gama de la marca Apple", new BigDecimal("1000.00"), Categoria.ELECTRONICO);
     }
 
+    /**
+     * Este metodo se ejecuta antes de cada test, limpia el carrito antes de cada prueba.
+     */
+
     @BeforeEach
     public void resetCarrito() {
         carrito.getItems().clear();
     }
 
-
+    /**
+     * Test para comprobar que se puede agregar un item al carrito.
+     */
     @Test
     public void agregarItemCarritoTest(){
         ItemCarrito itemCarrito = new ItemCarrito(1L,producto,2);
@@ -37,6 +46,9 @@ public class CarritoTest {
         assert size_despues == size_antes + 1 : "No han aumentado los items de carrito ";
     }
 
+    /**
+     * Test para comprobar que se puede eliminar un item del carrito.
+     */
     @Test
     public void eliminarItemCarritoTest(){
         ItemCarrito itemCarrito = new ItemCarrito(1L,producto,2);
@@ -54,6 +66,9 @@ public class CarritoTest {
         }
     }
 
+    /**
+     * Test para comprobar que se puede aumentar en 1(similar a los botones de aumentar y disminuir de los carritos) la cantidad de un item en el carrito.
+     */
     @Test
     public void aumentarCantidadCarritoTest() {
         ItemCarrito itemCarrito = new ItemCarrito(1L, producto, 1);
@@ -62,6 +77,9 @@ public class CarritoTest {
         assertEquals(2, itemCarrito.getCantidad(), "La cantidad aumentada no es correcta");
     }
 
+    /**
+     * Test para comprobar que se puede disminuir en 1(similar a los botones de aumentar y disminuir de los carritos) la cantidad de un item en el carrito.
+     */
     @Test
     public void disminuirCantidadCarritoTest() {
         ItemCarrito itemCarrito = new ItemCarrito(1L, producto, 3);
@@ -71,6 +89,9 @@ public class CarritoTest {
         assertEquals(2, itemCarrito.getCantidad(), "La cantidad disminuida no es correcta");
     }
 
+    /**
+     * Test para comprobar que se puede asignar una cantidad especifica a un item en el carrito.
+     */
     @Test
     public void asignarCantidadProductoTest() {
         ItemCarrito itemCarrito = new ItemCarrito(1L, producto, 2);
@@ -81,6 +102,10 @@ public class CarritoTest {
         assertEquals(5, itemCarrito.getCantidad(), "La cantidad asignada no es correcta");
     }
 
+
+    /**
+     * Test para comprobar que se calcula correctamente el total del carrito.
+     */
     @Test
     public void calcularTotalCarritoTest() {
         ItemCarrito itemCarrito1 = new ItemCarrito(1L, producto, 2);
